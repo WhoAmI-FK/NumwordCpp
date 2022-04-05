@@ -31,12 +31,51 @@ namespace whoamifk {
 
     class numword {
     private:
-        _size _num = 0;
+        _size _num;
         std::string _buf;
         _size _buflen;
-        bool isHyphen = false;
+        bool isHyphen;
+        void clearBuff() {
+            _buf.clear();
+        }
+        void initbuf() {
+            clearBuff();
+            isHyphen = false;
+        }
     public:
+        numword() : _num(0) {
 
+        }
+        numword(const _size& l) :
+            _num(l)
+        {
+
+        }
+        void setNum(const _size& l) {
+            _num = l;
+        }
+        _size getNum() const {
+            return _num;
+        }
+        std::string words() {
+            words(_num);
+        }
+        std::string words(const _size& num) {
+            if (num > _maxnum) return error_mess;
+            initbuf();
+            _size n = num;
+            if (n == 0) {
+                appendbuf(_singles[n]);
+                return _buf;
+            }
+        }
+        
+        std::string operator()(const _size& num) {
+            return words(num);
+        }
+        void appendbuf(std::string s) {
+            _buf += s;
+        }
     };
 };
 
